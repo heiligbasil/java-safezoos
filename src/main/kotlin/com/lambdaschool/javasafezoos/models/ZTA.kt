@@ -10,7 +10,8 @@ data class Zoo(
         @GeneratedValue(strategy = GenerationType.AUTO)
         val zooid: Long = 0,
         var zooname: String = "",
-        @OneToMany(mappedBy = "zoo")
+        @OneToMany(mappedBy = "zoo", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
+        @JsonIgnoreProperties("zoo")
         val telephones: MutableList<Telephone> = mutableListOf(),
         @ManyToMany
         @JoinTable(name = "zooanimals", joinColumns = [JoinColumn(name = "zooid")], inverseJoinColumns = [JoinColumn(name = "animalid")])
