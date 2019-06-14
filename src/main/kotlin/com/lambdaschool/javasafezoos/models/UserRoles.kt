@@ -2,30 +2,27 @@ package com.lambdaschool.javasafezoos.models
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-
-import javax.persistence.*
 import java.io.Serializable
-import java.util.Objects
+import java.util.*
+import javax.persistence.*
 
 @Entity
 @Table(name = "userroles")
 class UserRoles : Auditable, Serializable
 {
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("userRoles", "hibernateLazyInitializer")
+    @ManyToOne
+    @JsonIgnoreProperties("userRoles")
     @JoinColumn(name = "userid")
     var user: User? = null
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "roleid")
-    @JsonIgnoreProperties("userRoles", "hibernateLazyInitializer")
+    @JsonIgnoreProperties("userRoles")
     var role: Role? = null
 
     constructor()
-    {
-    }
 
     constructor(user: User, role: Role)
     {

@@ -59,7 +59,7 @@ class UserController
         val newUserURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{userid}")
-                .buildAndExpand(userCopy.getUserid())
+                .buildAndExpand(userCopy.userid)
                 .toUri()
         responseHeaders.location = newUserURI
 

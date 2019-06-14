@@ -18,7 +18,7 @@ class RoleServiceImpl : RoleService
     override fun findAll(): List<Role>
     {
         val list = ArrayList<Role>()
-        rolerepos!!.findAll().iterator().forEachRemaining({ list.add() })
+        rolerepos!!.findAll().iterator().forEachRemaining({ list.add(it) })
         return list
     }
 

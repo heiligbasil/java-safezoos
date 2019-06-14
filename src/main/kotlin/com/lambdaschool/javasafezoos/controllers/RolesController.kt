@@ -43,7 +43,7 @@ class RolesController
         val newRoleURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{roleid}")
-                .buildAndExpand(roleCopy.getRoleid())
+                .buildAndExpand(roleCopy.roleid)
                 .toUri()
         responseHeaders.location = newRoleURI
 

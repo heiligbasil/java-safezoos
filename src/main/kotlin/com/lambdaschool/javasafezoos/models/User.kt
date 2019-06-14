@@ -4,11 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-
 import javax.persistence.*
-import java.util.ArrayList
-
-// User is considered the parent entity of all - the Grand Poobah!
 
 @Entity
 @Table(name = "users")
@@ -21,17 +17,18 @@ class User : Auditable
     @Column(nullable = false, unique = true)
     var username: String? = null
 
+    @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private var password: String? = null
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
     @JsonIgnoreProperties("user")
-    var userRoles: List<UserRoles> = ArrayList()
+    var userRoles: MutableList<UserRoles> = mutableListOf()
 
     val authority: List<SimpleGrantedAuthority>
         get()
         {
-            val rtnList = ArrayList<SimpleGrantedAuthority>()
+            val rtnList = mutableListOf<SimpleGrantedAuthority>()
 
             for (r in this.userRoles)
             {
@@ -42,13 +39,10 @@ class User : Auditable
         }
 
     constructor()
-    {
-    }
 
-    constructor(username: String, password: String, userRoles: List<UserRoles>)
+    constructor(username: String, password: String, userRoles: MutableList<UserRoles>)
     {
         this.username = username
-
         setPassword(password)
         for (ur in userRoles)
         {
@@ -56,15 +50,6 @@ class User : Auditable
         }
         this.userRoles = userRoles
     }
-
-    /*constructor(username: String, password: String, userRoles: List<UserRoles>)
-    {
-        var myVar: Int // no need for initializer
-        get() = _myVar
-        set(value) {
-            _myVar = value
-        }
-    }*/
 
     fun getPassword(): String?
     {
