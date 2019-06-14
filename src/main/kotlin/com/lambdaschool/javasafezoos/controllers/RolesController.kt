@@ -50,7 +50,6 @@ class RolesController
         return ResponseEntity<Any>(null, responseHeaders, HttpStatus.CREATED)
     }
 
-
     @DeleteMapping("/role/{id}")
     fun deleteRoleById(@PathVariable id: Long): ResponseEntity<*>
     {

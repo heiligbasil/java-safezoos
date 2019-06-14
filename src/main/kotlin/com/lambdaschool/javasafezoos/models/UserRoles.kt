@@ -11,15 +11,15 @@ import javax.persistence.*
 class UserRoles : Auditable, Serializable
 {
     @Id
-    @ManyToOne
-    @JsonIgnoreProperties("userRoles")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
+    @JsonIgnoreProperties("userRoles", "hibernateLazyInitializer")
     var user: User? = null
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "roleid")
-    @JsonIgnoreProperties("userRoles")
+    @JsonIgnoreProperties("userRoles", "hibernateLazyInitializer")
     var role: Role? = null
 
     constructor()

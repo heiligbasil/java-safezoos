@@ -34,7 +34,7 @@ class UserController
     @GetMapping(value = ["/user/{userId}"], produces = ["application/json"])
     fun getUser(@PathVariable userId: Long): ResponseEntity<*>
     {
-        val u = userService!!.findUserById(userId)
+        val u = userService?.findUserById(userId)
         return ResponseEntity<Any>(u, HttpStatus.OK)
     }
 
